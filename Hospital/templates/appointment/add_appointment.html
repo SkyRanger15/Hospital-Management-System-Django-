@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2>Add Appointment</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="patient">Patient</label>
+                    <select id="patient" name="patient_id" class="form-control">
+                        <option value="" selected disabled>Select Patient</option>
+                        {% for patient in patients %}
+                        <option value="{{ patient.id }}">{{ patient.patient_Name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <select id="department" name="department" class="form-control">
+                        <option value="General">Select Department</option>
+                        <option value="General">General</option>
+                        <option value="Neuro">Neuro</option>
+                        <option value="Ortho">Ortho</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="appointment_date">Appointment Date</label>
+                    <input type="date" id="appointment_date" name="appointment_date" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="time-slot">Time Slot</label>
+                    <select class="form-control" id="time-slot" name="appointment_time">
+                        <option value="10:00:00">10AM-11AM</option>
+                        <option value="11:00:00">11AM-12PM</option>
+                        <option value="12:00:00">12PM-01PM</option>
+                        <option value="14:00:00">2PM-3PM</option>
+                        <option value="15:00:00">3PM-4PM</option>
+                        <option value="16:00:00">4PM-5PM</option>
+                        <option value="18:00:00">6PM-7PM</option>
+                        <option value="19:00:00">7PM-8PM</option>
+                        <option value="20:00:00">8PM-9PM</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="doctor-group" style="display: none;">
+                    <label for="doctor_name">Doctor Name</label>
+                    <select id="doctor_name" name="doctor_name" class="form-control"></select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

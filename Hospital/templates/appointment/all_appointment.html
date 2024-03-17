@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>All Appointments</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Department</th>
+                        <th>Appointment Date</th>
+                        <th>Appointment Time</th>
+                        <th>Doctor Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in appointments %}
+                    <tr>
+                        <td>{{ appointment.patient.patient_Name }}</td>
+                        <td>{{ appointment.department }}</td>
+                        <td>{{ appointment.appointment_date }}</td>
+                        <td>{{ appointment.appointment_time }}</td>
+                        <td>{{ appointment.doctor_name }}</td>
+                        <td>
+                            {% if appointment.status == 'Pending' %}
+                                <form method="post" action="{% url 'all_appointment' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                                    <input type="hidden" name="status" value="Success">
+                                    <button type="submit" class="btn btn-success">Done</button>
+                                </form>
+                            {% else %}
+                                {{ appointment.status }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

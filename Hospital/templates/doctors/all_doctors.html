@@ -1,0 +1,41 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>All Doctors</h2>
+
+    <form method="GET" action="{% url 'all_doctor' %}" class="mb-3">
+        <select name="department" class="form-control">
+            <option value="">All Departments</option>
+            <option value="General" {% if selected_department == 'General' %}selected{% endif %}>General</option>
+            <option value="Ortho" {% if selected_department == 'Ortho' %}selected{% endif %}>Ortho</option>
+            <option value="Neuro" {% if selected_department == 'Neuro' %}selected{% endif %}>Neuro</option>
+        </select>
+        &nbsp;
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+    
+
+
+
+    <div class="row">
+        {% for doctor in doctors %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ doctor.doctor_name }}</h5>
+                    <p class="card-text"><strong>Department:</strong> {{ doctor.department }}</p>
+                    <p class="card-text"><strong>Experience:</strong> {{ doctor.experience }} years</p>
+                    <p class="card-text"><strong>Email:</strong> {{ doctor.email }}</p>
+                    <p class="card-text"><strong>Phone:</strong> {{ doctor.phone }}</p>
+                   
+                   
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+
