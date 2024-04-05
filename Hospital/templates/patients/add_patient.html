@@ -1,107 +1,170 @@
 {% extends 'base.html' %}
-{% block content %}  
-<!-- /Menu -->
-				<!-- Breadcrumb -->
-				<!-- Page Title -->
-				<div class="container mt-0">
-					<div class="row breadcrumb-bar">
-						<div class="col-md-6">
-							<h3 class="block-title">Add Patient</h3>
-						</div>
-						<div class="col-md-6">
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item">
-									<a href="index.html">
-										<span class="ti-home"></span>
-									</a>
-								</li>
-								<li class="breadcrumb-item">Patients</li>
-								<li class="breadcrumb-item active">Add Patient</li>
-							</ol>
-						</div>
-					</div>
-				</div>
-			<!-- /Page Title -->
+{% block content %}
+    <!-- Breadcrumb -->
+    <!-- Page Title -->
+    <div class="container mt-0">
+        <div class="row breadcrumb-bar">
+            <div class="col-md-6">
+                <h3 class="block-title">Add Patient</h3>
+            </div>
+            <div class="col-md-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'base' %}">
+                            <span class="ti-home"></span>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">Patients</li>
+                    <li class="breadcrumb-item active">Add Patient</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Title -->
+    <!-- /Breadcrumb -->
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Widget Item -->
+            <div class="col-md-12">
+                <div class="widget-area-2 proclinic-box-shadow">
+                    <h3 class="widget-title">Add Patient</h3>
+                    <form method="post" action="{% url 'add_patient' %}" id="patient-form">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="patient-name">Patient Name</label>
+                                <input type="text" class="form-control " placeholder="Patient name" id="patient-name" name="patient_name">
+                                <div class="error-msg"></div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="dob">Date Of Birth</label>
+                                <input type="date" placeholder="Date of Birth" class="form-control" id="dob" name="dob">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="age">Age</label>
+                                <input type="text" placeholder="Age" class="form-control " id="age" name="age">
+                                <div class="error-msg"></div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="phone">Mobile No.</label>
+                                <input type="text" placeholder="10-Digit Mobile No." class="form-control " id="phone" name="phone">
+                                <div class="error-msg"></div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="email">Email</label>
+                                <input type="email" placeholder="Email" class="form-control " id="email" name="email">
+                                <div class="error-msg"></div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="gender">Gender</label>
+                                <select class="form-control" id="gender" name="gender">
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="exampleFormControlTextarea1">Address (optional) </label>
+                                <textarea placeholder="Address" class="form-control" id="exampleFormControlTextarea1" rows="3" name="address"></textarea>
+                            </div>
+                            <div class="form-check col-md-12 mb-2">
+                                <div class="text-left">
+                                    <div class="custom-control custom-checkbox">
+                                        <input class="custom-control-input" type="checkbox" id="ex-check-2">
+                                        <label class="custom-control-label" for="ex-check-2">Please Confirm</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 mb-3">
+                                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Alerts-->
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Successfully Done!</strong> 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>Sky Ranger</strong> is the genius of this century
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <!-- /Alerts-->
+                </div>
+            </div>
+            <!-- /Widget Item -->
+        </div>
+    </div>
+    <!-- /Main Content -->
+    <script>
+        const form = document.getElementById('patient-form');
+        const patientName = document.getElementById('patient-name');
+        const age = document.getElementById('age');
+        const phone = document.getElementById('phone');
+        const email = document.getElementById('email');
 
-			<!-- /Breadcrumb -->
-			<!-- Main Content -->
-			<div class="container">
+        form.addEventListener('submit', e => {
+            if (!validateInputs()) {
+                e.preventDefault();
+            }
+        });
 
-				<div class="row">
-					<!-- Widget Item -->
-					<div class="col-md-12">
-						<div class="widget-area-2 proclinic-box-shadow">
-							<h3 class="widget-title">Add Patient</h3>
-							<form method="post" action="{% url 'add_patient' %}">
-								{% csrf_token %}
-								<div class="form-row">
-									<div class="form-group col-md-6">
-										<label for="patient-name">Patient Name</label>
-										<input type="text" class="form-control" placeholder="Patient name" id="patient-name" name="patient_name">
-									</div>
-									<div class="form-group col-md-6">
-										<label for="dob">Date Of Birth</label>
-										<input type="date" placeholder="Date of Birth" class="form-control" id="dob" name="dob">
-									</div>
-									<div class="form-group col-md-6">
-										<label for="age">Age</label>
-										<input type="text" placeholder="Age" class="form-control" id="age" name="age">
-									</div>
-									<div class="form-group col-md-6">
-										<label for="phone">Phone</label>
-										<input type="text" placeholder="Phone" class="form-control" id="phone" name="phone">
-									</div>
-									<div class="form-group col-md-6">
-										<label for="email">Email</label>
-										<input type="email" placeholder="email" class="form-control" id="Email" name="email">
-									</div>
-									<div class="form-group col-md-6">
-										<label for="gender">Gender</label>
-										<select class="form-control" id="gender" name="gender">
-											<option>Male</option>
-											<option>Female</option>
-											<option>Other</option>
-										</select>
-									</div>
-									<div class="form-group col-md-12">
-										<label for="exampleFormControlTextarea1">Address</label>
-										<textarea placeholder="Address" class="form-control" id="exampleFormControlTextarea1" rows="3" name="address"></textarea>
-									</div>
-									
-																		
-									<div class="form-check col-md-12 mb-2">
-										<div class="text-left">
-											<div class="custom-control custom-checkbox">
-												<input class="custom-control-input" type="checkbox" id="ex-check-2">
-												<label class="custom-control-label" for="ex-check-2">Please Confirm</label>
-											</div>
-										</div>
-									</div>
-									<div class="form-group col-md-6 mb-3">
-										<button type="submit" class="btn btn-primary btn-lg">Submit</button>
-									</div>
-								</div>
-							</form>
-							<!-- Alerts-->
-							<div class="alert alert-success alert-dismissible fade show" role="alert">
-								<strong>Successfully Done!</strong> Please add payment now
-								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-									<span aria-hidden="true">×</span>
-								</button>
-							</div>
-							<div class="alert alert-warning alert-dismissible fade show" role="alert">
-								<strong>Sky Ranger</strong> is the genius of this century
-								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-									<span aria-hidden="true">×</span>
-								</button>
-							</div>
-							<!-- /Alerts-->
-						</div>
-					</div>
-					<!-- /Widget Item -->
-				</div>
-			</div>
-			<!-- /Main Content -->
+        const setError = (element, message) => {
+            const errorDisplay = element.parentElement.querySelector('.error-msg');
+            errorDisplay.innerText = message;
+            element.classList.add('error-input');
+        }
 
+        const setSuccess = element => {
+            const errorDisplay = element.parentElement.querySelector('.error-msg');
+            errorDisplay.innerText = '';
+            element.classList.remove('error-input');
+        };
 
+        const validateInputs = () => {
+            let isValid = true;
+
+            // Patient Name validation
+            if (!patientName.value.trim()) {
+                setError(patientName, 'Mandatory Field');
+                isValid = false;
+            } else if (!/^[a-zA-Z\s]*$/.test(patientName.value.trim())) {
+                setError(patientName, 'Only alphabets and spaces allowed');
+                isValid = false;
+            } else {
+                setSuccess(patientName);
+            }
+
+            // Age validation
+            if (!/^\d+$/.test(age.value.trim())) {
+                setError(age, 'Enter a Valid Age');
+                isValid = false;
+            } else {
+                setSuccess(age);
+            }
+
+            // Phone validation
+            if (!/^\d{10}$/.test(phone.value.trim())) {
+                setError(phone, 'Enter a valid 10-digit mobile number');
+                isValid = false;
+            } else {
+                setSuccess(phone);
+            }
+
+            // Email validation
+            if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email.value.trim())) {
+                setError(email, 'Enter a valid email address');
+                isValid = false;
+            } else {
+                setSuccess(email);
+            }
+
+            return isValid;
+        };
+    </script>
 {% endblock %}

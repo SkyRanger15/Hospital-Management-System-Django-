@@ -5,6 +5,8 @@ from app.models import *
 def BASE(request):
     return render(request,'base.html')
 
+def HOME(request):
+    return render(request,'home.html')
 
 def ADD_PATIENT(request):
     if request.method == "POST":

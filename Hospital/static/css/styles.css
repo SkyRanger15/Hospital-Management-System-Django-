@@ -1158,6 +1158,16 @@ form .form-group label{
 	border-radius: 10px;
 }
 
+.error-input {
+	border: 2px solid #ff3860 !important; /* Red border */
+}
+
+.error-msg {
+	color: #ff3860 !important; /* Red color for error message */
+}
+
+
+
 /*=======================
  	Typography
 ====================== */
@@ -1343,4 +1353,12 @@ form .form-group label{
 
 a.block.block-link-pop:hover {
 	opacity: 1;
+}
+
+.error-input {
+    border: 2px solid #ff3860 !important; /* Red border */
+}
+
+.error-msg {
+    color: #ff3860; /* Red color for error message */
 }

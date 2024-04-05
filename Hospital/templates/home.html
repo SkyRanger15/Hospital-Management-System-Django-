@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Name</title>
+    <style>
+        /* Basic CSS for styling */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            font-family: 'Times New Roman', Times, serif;
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .image-container {
+        display: flex; /* Use flexbox to align items */
+        flex-wrap: wrap; /* Allow items to wrap to next line if necessary */
+        }
+
+        .doctor-info {
+        flex: 0 0 calc(50% - 20px); /* Adjust width of each item (subtracting margin) */
+        margin: 10px; /* Add margin to create space between items */
+        text-align: center; /* Optionally center align text */
+        }
+
+        .doctor-info img {
+        width: 100%; /* Ensure image fills its container */
+        height: auto; /* Maintain aspect ratio */
+        }
+
+
+    </style>
+</head>
+<body>
+    <nav></nav>
+    <header>
+        <h1>DOCTOR BHAII</h1>
+        <p>Welcome to one of the prestigious hospital ever made</p>
+    </header>
+    <nav>
+        <ul>
+            <!-- <li><a href="Path set nahi ho raha">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="doctors/add_doctor.html">Doctors</a></li>
+            <li><a href="#">Contact</a></li> -->
+        </ul>
+    </nav>
+    <div class="container">
+        <h2>About Us</h2>
+        <h2>Welcome to DOCTOR BHAI, Your Trusted Healthcare Partner
+
+            <p>At DOCTOR BHAI, we pride ourselves on being a beacon of hope and healing in our community. With a rich history spanning over 2 years, our hospital has been dedicated to providing exceptional healthcare services with compassion, expertise, and innovation.</p><br>
+            <br>
+            <p>Our Mission</p><br>
+            
+            <p>Our mission at DOCTOR BHAI is simple yet profound: to improve the health and well-being of every individual who walks through our doors. We strive to achieve this by delivering high-quality, patient-centered care that is accessible, affordable, and tailored to the unique needs of each patient.</p><br>
+            <br>
+            Comprehensive Healthcare Services<br>
+            <br>
+            <h2>Our Doctors</h2>
+            <div class="image-container">
+                <div class="doctor-info">
+                    <img src="{% static 'appoint.jpg' %}" alt="tanmay" width="250" height="250">
+                    <p>Dr Tanmay Malav</p>
+                    <p>Specialty: Cardiology</p>
+                    <p>Education: MD, Cardiology</p>
+                </div>
+                <div class="Footballer, autistic">
+                    <img src="{% static 'chaman.jpg' %}" alt="chaman" width="250" height=auto>
+                    <p>Dr Chaman Sinha</p>
+                    <p>Specialty: Cardiology</p>
+                    <p>Education: MD, Cardiology</p>
+                </div>
+                <div class="doctor-info">
+                    <img src="{% static 'slide3.jpg' %}" alt="jit" width="250" height="250">
+                    <p>Dr Jit</p>
+                    <p>Specialty: Cardiology</p>
+                    <p>Education: MD, Cardiology</p>
+                </div>
+                <div class="doctor-info">
+                    <img src="{% static 'slide3.jpg' %}" alt="kalam" width="250" height="250">
+                    <p>Dr APG Adbul Kalam</p>
+                    <p>Specialty: Cardiology</p>
+                    <p>Education: MD, Cardiology</p>
+                    <p>Bhaii pilot hai</p>
+                </div>
+            </div>
+            
+            
+            <p>Our hospital is proud to have a team of specialized physicians who are leaders in their respective fields. From cardiology to oncology, neurology to orthopedics, our doctors bring expertise, compassion, and innovation to every patient encounter. With a focus on personalized care and evidence-based medicine, they are dedicated to delivering the highest quality of healthcare services.</p>
+            <p>Whether it's diagnosing complex medical conditions, performing intricate surgeries, or providing ongoing care and support, our doctors are committed to meeting the unique needs of each patient with professionalism and empathy.</p>
+            <p>Meet our team of doctors and discover the difference they make in the lives of our patients every day.</p>
+            <br>
+            We offer a comprehensive range of medical services, including but not limited to:<br>
+            <ol>
+                <li>Emergency Care: Our state-of-the-art emergency department is staffed with skilled healthcare professionals who are ready to provide immediate care and support in times of crisis.</li>
+                <li>Specialty Care: From cardiology to oncology, neurology to orthopedics, our hospital boasts a team of specialized physicians and surgeons who are leaders in their respective fields.</li>
+                <li>Primary Care: We believe in the importance of preventive care and building long-lasting relationships with our patients. Our primary care providers offer personalized care to help you maintain optimal health and well-being.</li>
+                <li>Diagnostic Services: Equipped with advanced imaging technology and laboratory facilities, we offer a wide range of diagnostic services to aid in the accurate and timely diagnosis of medical conditions.</li>
+                <li>Rehabilitation Services: Our rehabilitation programs aim to restore function, improve mobility, and enhance quality of life for patients recovering from injuries, surgeries, or chronic conditions.</li>
+            </ol>
+            
+            <br>
+            Commitment to Excellence<br>
+            
+            At DOCTOR BHAI, excellence is not just a goal; it's our standard. We are committed to upholding the highest standards of clinical quality, patient safety, and ethical integrity in everything we do. Our dedicated team of healthcare professionals works tirelessly to ensure that every patient receives the best possible care, from the moment they enter our doors to the moment they leave.<br>
+            <br>
+            Community Engagement<br>
+            
+            We understand the importance of community engagement and actively participate in various outreach programs, health fairs, and educational initiatives to promote health and wellness in our community.<br>
+        <p>This is a brief introduction about our hospital.</p>
+        <h2>Contact Information</h2>
+        <p>Address: Near Dmart, Pune, India</p>
+        <p>Phone: +917905307832</p>
+        <p>Email: Doctorbhaii@gmail.com</p>
+    </div>
+</body>
+</html>
+
+{% endblock %}
