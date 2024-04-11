@@ -1,0 +1,80 @@
+<!-- view_assigned_patients.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-0">
+    <div class="row breadcrumb-bar">
+        <div class="col-md-6">
+            <h3 class="block-title">Assigned Patients - {{ bed_type }}</h3>
+        </div>
+        <div class="col-md-6">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'base' %}">
+                        <span class="ti-home"></span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">Beds</li>
+                <li class="breadcrumb-item active">Assigned Patients</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Switch Bed Type
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for bed in bed_types %}
+                    <a class="dropdown-item" href="{% url 'view_assigned_patients' bed_type=bed %}">{{ bed }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget-area-2 proclinic-box-shadow">
+                <h3 class="widget-title">Assigned Patients - {{ bed_type }}</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Patient Name</th>
+                            <th>Date of Birth</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patient in patients %}
+                        <tr>
+                            <td>{{ patient.patient_Name }}</td>
+                            <td>{{ patient.date_of_birth }}</td>
+                            <td>{{ patient.age }}</td>
+                            <td>{{ patient.gender }}</td>
+                            <td>{{ patient.phone }}</td>
+                            <td>{{ patient.email }}</td>
+                            <td>{{ patient.address }}</td>
+                            <td>
+                                <form action="{% url 'release_patient' patient.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Release</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

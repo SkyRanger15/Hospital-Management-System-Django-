@@ -8,12 +8,13 @@
             <div class="col-md-12">
                 <div class="widget-area-2 proclinic-box-shadow">
                     <h3 class="widget-title">Add Doctor</h3>
-                    <form method="post">
+                    <form method="post" id="doctor-form">
                         {% csrf_token %}
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="doctor-name">Doctor Name</label>
-                                <input type="text" class="form-control" placeholder="Doctor name" id="doctor-name" name="Doctor-name">
+                                <input type="text" class="form-control" placeholder="Doctor name" id="doctor-name" name="doctor_name">
+                                <div class="error-msg"></div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="dob">Date Of Birth</label>
@@ -30,14 +31,17 @@
                             <div class="form-group col-md-6">
                                 <label for="experience">Years of Experience</label>
                                 <input type="text" placeholder="Experience" class="form-control" id="experience" name="experience">
+                                <div class="error-msg"></div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="phone">Phone</label>
                                 <input type="text" placeholder="Phone" class="form-control" id="phone" name="phone">
+                                <div class="error-msg"></div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="email">Email</label>
                                 <input type="email" placeholder="Email" class="form-control" id="email" name="email">
+                                <div class="error-msg"></div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="gender">Gender</label>
@@ -48,11 +52,11 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="about-doctor">Doctor Details</label>
-                                <textarea placeholder="Doctor Details" class="form-control" id="about-doctor" rows="3" name="about-doctor"></textarea>
+                                <label for="about-doctor">Doctor Details (optional)</label>
+                                <textarea placeholder="Doctor Details" class="form-control" id="about-doctor" rows="3" name="about_doctor"></textarea>
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="address">Address</label>
+                                <label for="address">Address (optional)</label>
                                 <textarea placeholder="Address" class="form-control" id="address" rows="3" name="address"></textarea>
                             </div>
                             
@@ -89,4 +93,71 @@
         </div>
     </div>
     <!-- /Main Content -->
+
+    <script>
+        const form = document.getElementById('doctor-form');
+        const doctorName = document.getElementById('doctor-name');
+        const experience = document.getElementById('experience');
+        const phone = document.getElementById('phone');
+        const email = document.getElementById('email');
+
+        form.addEventListener('submit', e => {
+            if (!validateInputs()) {
+                e.preventDefault();
+            }
+        });
+
+        const setError = (element, message) => {
+            const errorDisplay = element.parentElement.querySelector('.error-msg');
+            errorDisplay.innerText = message;
+            element.classList.add('error-input');
+        }
+
+        const setSuccess = element => {
+            const errorDisplay = element.parentElement.querySelector('.error-msg');
+            errorDisplay.innerText = '';
+            element.classList.remove('error-input');
+        };
+
+        const validateInputs = () => {
+            let isValid = true;
+
+            // Doctor Name validation
+            if (!doctorName.value.trim()) {
+                setError(doctorName, 'Mandatory Field');
+                isValid = false;
+            } else if (!/^[a-zA-Z\s]*$/.test(doctorName.value.trim())) {
+                setError(doctorName, 'Only alphabets and spaces allowed');
+                isValid = false;
+            } else {
+                setSuccess(doctorName);
+            }
+
+            // Experience validation
+            if (!/^\d+$/.test(experience.value.trim())) {
+                setError(experience, 'Enter a Valid Experience');
+                isValid = false;
+            } else {
+                setSuccess(experience);
+            }
+
+            // Phone validation
+            if (!/^\d{10}$/.test(phone.value.trim())) {
+                setError(phone, 'Enter a valid 10-digit mobile number');
+                isValid = false;
+            } else {
+                setSuccess(phone);
+            }
+
+            // Email validation
+            if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email.value.trim())) {
+                setError(email, 'Enter a valid email address');
+                isValid = false;
+            } else {
+                setSuccess(email);
+            }
+
+            return isValid;
+        };
+    </script>
 {% endblock %}

@@ -1,0 +1,52 @@
+<!-- book_bed.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-0">
+    <div class="row breadcrumb-bar">
+        <div class="col-md-6">
+            <h3 class="block-title">Book Bed</h3>
+        </div>
+        <div class="col-md-6">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'base' %}">
+                        <span class="ti-home"></span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">Beds</li>
+                <li class="breadcrumb-item active">Book Bed</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget-area-2 proclinic-box-shadow">
+                <h3 class="widget-title">Book Bed</h3>
+                <form method="post" action="{% url 'book_bed' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="patient">Select Patient:</label>
+                        <select class="form-control" id="patient" name="patient">
+                            {% for patient in patients %}
+                            <option value="{{ patient.id }}">{{ patient.patient_Name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bed-type">Select Bed Type:</label>
+                        <select class="form-control" id="bed-type" name="bed_type">
+                            {% for bed in beds %}
+                            <option value="{{ bed.bed_type }}">{{ bed }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Book Bed</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

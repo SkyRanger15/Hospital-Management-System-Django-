@@ -32,5 +32,9 @@ urlpatterns = [
     path('doctor/add',views.ADD_DOCTOR,name='add_doctor'), 
     path('doctor/all',views.ALL_DOCTOR,name='all_doctor'), 
     path('get_doctors_by_department/', views.get_doctors_by_department, name='get_doctors_by_department'),
+    path('Beds/Book',views.BOOK_BED,name='book_bed'), 
+    path('view_assigned_patients/<str:bed_type>/', views.view_assigned_patients, name='view_assigned_patients'),
+    path('view_assigned_patients/General/', views.view_assigned_patients, name='view_assigned_patients/G'),
+    path('release_patient/<int:patient_id>/', views.release_patient, name='release_patient'),
 
 ]

@@ -62,3 +62,25 @@ class Doctor(models.Model):
 
     def __str__(self):
         return self.doctor_name
+    
+
+ 
+
+class Bed(models.Model):
+    BED_TYPES = (
+        ('General', 'General'),
+        ('Private', 'Private'),
+        ('Delux', 'Delux'),  
+    )
+    bed_type = models.CharField(max_length=100, choices=BED_TYPES)
+    available_beds = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.bed_type} Beds - Available: {self.available_beds}"
+    
+class BedAssignment(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    bed = models.ForeignKey(Bed, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.patient.patient_Name} - {self.bed.bed_type}"

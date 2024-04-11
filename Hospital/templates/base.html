@@ -154,7 +154,7 @@
 								<span class="ti-user"></span>
 							</a>
 							<div class="dropdown-menu proclinic-box-shadow2 profile animated flipInY">
-								<h5>John Willing</h5>
+								<h5>The Genius</h5>
 								<a class="dropdown-item" href="#">
 									<span class="ti-settings"></span> Settings</a>
 								<a class="dropdown-item" href="#">
@@ -210,6 +210,15 @@
 									<a class="dropdown-item" href="{% url 'add_appointment' %}">Add Appointment</a>
 									<a class="dropdown-item" href="{% url 'all_appointment' %}">All Appointments</a>
 									
+								</div>
+							</li>
+
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+									aria-expanded="false"><span class="ti-layout-tab"></span> Bed Allotment</a>
+								<div class="dropdown-menu">
+								   <a class="dropdown-item" href="{% url 'book_bed' %}">Book Bed</a>
+								   <a class="dropdown-item" href="{% url 'view_assigned_patients/G' %}">Bed Status</a>
 								</div>
 							</li>
 							

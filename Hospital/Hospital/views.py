@@ -120,3 +120,48 @@ def get_doctors_by_department(request):
     department = request.GET.get('department')
     doctors = Doctor.objects.filter(department=department).values('id', 'doctor_name')
     return JsonResponse(list(doctors), safe=False)
+
+
+
+def BOOK_BED(request):
+    if request.method == "POST":
+        patient_id = request.POST.get('patient')
+        bed_type = request.POST.get('bed_type')
+
+        patient = Patient.objects.get(pk=patient_id)
+        bed = Bed.objects.get(bed_type=bed_type)
+
+        # Check if there are available beds for the selected type
+        if bed.available_beds > 0:
+            # Create a new BedAssignment object to represent the assignment of the patient to the bed
+            assignment = BedAssignment.objects.create(patient=patient, bed=bed)
+            # Decrement available beds for the selected type
+            bed.available_beds -= 1
+            bed.save()
+            # Optionally, you can associate the patient with the bed here if needed
+
+    patients = Patient.objects.all()
+    beds = Bed.objects.all()
+
+    # Count available beds for each bed type
+    available_beds_count = {}
+    for bed in beds:
+        available_beds_count[bed.bed_type] = bed.available_beds
+
+    return render(request, 'Beds/Book_bed.html', {'patients': patients, 'beds': beds, 'available_beds_count': available_beds_count})
+
+def view_assigned_patients(request, bed_type):
+    assigned_patients = BedAssignment.objects.filter(bed__bed_type=bed_type).values_list('patient', flat=True)
+    patients = Patient.objects.filter(id__in=assigned_patients)
+    bed_types = Bed.objects.values_list('bed_type', flat=True).distinct()
+    return render(request, 'Beds/view_assigned_patients.html', {'patients': patients, 'bed_type': bed_type, 'bed_types': bed_types})
+
+def release_patient(request, patient_id):
+    patient = Patient.objects.get(pk=patient_id)
+    bed_assignment = BedAssignment.objects.get(patient=patient)
+    bed_type = bed_assignment.bed.bed_type
+    bed = Bed.objects.get(bed_type=bed_type)
+    bed.available_beds += 1  # Increase available beds
+    bed.save()
+    bed_assignment.delete()  # Delete the bed assignment
+    return redirect('view_assigned_patients', bed_type=bed_type)
